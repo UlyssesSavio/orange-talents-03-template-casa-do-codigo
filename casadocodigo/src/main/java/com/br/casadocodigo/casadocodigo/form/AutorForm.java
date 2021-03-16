@@ -6,6 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.br.casadocodigo.casadocodigo.entidades.Autor;
+import com.br.casadocodigo.casadocodigo.validacao.UniqueValue;
 
 public class AutorForm {
 
@@ -14,6 +15,7 @@ public class AutorForm {
 	@NotBlank
 	@Email
 	@Column(unique = true)
+	@UniqueValue(domainClass= Autor.class, fieldName="email")
 	private String email;
 	@NotBlank
 	@Size(max = 400)

@@ -8,9 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +20,6 @@ import com.br.casadocodigo.casadocodigo.dto.CategoriaDto;
 import com.br.casadocodigo.casadocodigo.entidades.Categoria;
 import com.br.casadocodigo.casadocodigo.form.CategoriaForm;
 import com.br.casadocodigo.casadocodigo.repository.CategoriaRepository;
-import com.br.casadocodigo.casadocodigo.validacao.ProibeNomeDuplicadoCategoriaValidator;
 
 @RestController
 @RequestMapping("/categoria")
@@ -31,15 +28,7 @@ public class CategoriaController {
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 	
-	@Autowired
-	private ProibeNomeDuplicadoCategoriaValidator proibeNomeDuplicadoCategoriaValidator;
-
 	
-	@InitBinder
-	public void init(WebDataBinder binder) {
-		
-		binder.addValidators(proibeNomeDuplicadoCategoriaValidator);
-	}
 	
 	
 	@Transactional
