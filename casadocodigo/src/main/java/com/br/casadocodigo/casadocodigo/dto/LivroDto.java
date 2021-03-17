@@ -6,6 +6,7 @@ import com.br.casadocodigo.casadocodigo.entidades.Livro;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class LivroDto {
+	//Livro dto que ja tinha criado
 
 	private String titulo;
 	private String resumo;

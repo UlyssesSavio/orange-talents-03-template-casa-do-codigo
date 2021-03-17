@@ -67,7 +67,7 @@ public class LivroController {
 	
 	@GetMapping("/{id}")
 	private ResponseEntity<LivroDto> detalhar  (@PathVariable Long id){
-		
+		// fiz o metodo de busca desde o inicio
 		Optional<Livro> livro = livroRepository.findById(id);
 		if(livro.isPresent()) {
 			return ResponseEntity.ok(new LivroDto(livro.get()));
