@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import com.br.casadocodigo.casadocodigo.entidades.Autor;
 import com.br.casadocodigo.casadocodigo.entidades.Categoria;
 import com.br.casadocodigo.casadocodigo.form.CategoriaForm;
 import com.br.casadocodigo.casadocodigo.repository.CategoriaRepository;
