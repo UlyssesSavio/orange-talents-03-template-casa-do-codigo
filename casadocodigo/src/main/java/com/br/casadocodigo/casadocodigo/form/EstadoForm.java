@@ -3,15 +3,21 @@ package com.br.casadocodigo.casadocodigo.form;
 import java.util.Optional;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.util.Assert;
 
 import com.br.casadocodigo.casadocodigo.entidades.Estado;
-import com.br.casadocodigo.casadocodigo.repository.EstadoRepository;
+import com.br.casadocodigo.casadocodigo.entidades.Pais;
+import com.br.casadocodigo.casadocodigo.repository.PaisRepository;
+import com.br.casadocodigo.casadocodigo.validacao.ExistsId;
 import com.br.casadocodigo.casadocodigo.validacao.UniqueValue;
 
 public class EstadoForm {
 
-	@NotBlank
-	private String idPais;
+	@NotNull
+	@ExistsId(domainClass = Pais.class, fieldName = "id")
+	private Long idPais;
 
 	@NotBlank
 	@UniqueValue(domainClass = Estado.class, fieldName = "nome")
@@ -21,13 +27,15 @@ public class EstadoForm {
 
 	}
 
-	public EstadoForm(String idPais, String nome) {
-		super();
+	public EstadoForm(Long idPais, String nome) {
+		
 		this.idPais = idPais;
 		this.nome = nome;
 	}
 
-	public String getIdPais() {
+	
+
+	public Long getIdPais() {
 		return idPais;
 	}
 
@@ -35,15 +43,15 @@ public class EstadoForm {
 		return nome;
 	}
 
-	public Optional<Estado> converter(EstadoRepository repository) {
+	public Estado converter(PaisRepository repository) {
 
-		Optional<Estado> estadoOp = repository.findById(Long.parseLong(idPais));
+		Optional<Pais> paisOp = repository.findById(idPais);
 
-		if (!estadoOp.isPresent()) {
-			estadoOp = Optional.empty();
-		}
-
-		return estadoOp;
+		Assert.state(paisOp.isPresent(),"Nao existe o pais com o id "+idPais);
+		
+		
+		
+		return new Estado(nome, paisOp.get());
 
 	}
 

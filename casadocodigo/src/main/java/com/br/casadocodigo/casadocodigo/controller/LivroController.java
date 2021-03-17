@@ -22,7 +22,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.br.casadocodigo.casadocodigo.dto.LivroBasicoDto;
 import com.br.casadocodigo.casadocodigo.dto.LivroDto;
 import com.br.casadocodigo.casadocodigo.entidades.Livro;
-import com.br.casadocodigo.casadocodigo.exception.AutorLivroNaoEncontradoException;
 import com.br.casadocodigo.casadocodigo.form.LivroForm;
 import com.br.casadocodigo.casadocodigo.repository.AutorRepository;
 import com.br.casadocodigo.casadocodigo.repository.CategoriaRepository;

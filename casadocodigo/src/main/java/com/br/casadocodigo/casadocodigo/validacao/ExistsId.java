@@ -17,7 +17,7 @@ import javax.validation.Payload;
 @Retention(RUNTIME)
 public @interface ExistsId {
 
-	String message() default "{com.deveficiente.beanvalidation.existsid}";
+	String message() default "Id nao existe";
 	Class<?>[] groups() default { };
 	Class<? extends Payload>[] payload() default { };
 	String fieldName();
