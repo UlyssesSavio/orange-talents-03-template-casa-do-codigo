@@ -1,7 +1,10 @@
 package com.br.casadocodigo.casadocodigo.controller;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.br.casadocodigo.casadocodigo.dto.LivroBasicoDto;
 import com.br.casadocodigo.casadocodigo.dto.LivroDto;
 import com.br.casadocodigo.casadocodigo.entidades.Livro;
 import com.br.casadocodigo.casadocodigo.exception.AutorLivroNaoEncontradoException;
@@ -70,6 +74,20 @@ public class LivroController {
 		}
 		return ResponseEntity.notFound().build();
 		
+		
+	}
+	
+	@GetMapping()
+	private ResponseEntity<List<LivroBasicoDto>> buscaListaLivro (){
+		List<Livro> livros = new ArrayList<Livro>();
+		
+		livros = livroRepository.findAll();
+		
+		List<LivroBasicoDto> livrosDto = new ArrayList<LivroBasicoDto>();
+		livrosDto.addAll(livros.stream().map(LivroBasicoDto::new).collect(Collectors.toList()));
+		
+		
+		return ResponseEntity.ok(livrosDto);
 		
 	}
 
