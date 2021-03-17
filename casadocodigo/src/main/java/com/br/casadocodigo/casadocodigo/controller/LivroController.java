@@ -47,13 +47,8 @@ public class LivroController {
 	@PostMapping
 	private ResponseEntity<LivroDto> cadastrar (@RequestBody @Valid  LivroForm livroForm, UriComponentsBuilder uriBuilder){
 		
-		Optional<Livro> livroOp = livroForm.converter(categoriaRepository, autorRepository);
-		if(!livroOp.isPresent()) {
-			throw new AutorLivroNaoEncontradoException();
-			//return ResponseEntity.badRequest().build();
-		}
-		
-		Livro livro = livroOp.get();
+		Livro livro = livroForm.converter(categoriaRepository, autorRepository);
+	
 		
 		livroRepository.save(livro);
 		

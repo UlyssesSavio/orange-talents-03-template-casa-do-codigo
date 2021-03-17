@@ -38,12 +38,14 @@ public class ErroDeValidacaoHandler {
 	}
 
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(AutorLivroNaoEncontradoException.class)
-	public ErroDeFormularioDto autorLivro(AutorLivroNaoEncontradoException exception) {
+	@ExceptionHandler(IllegalStateException.class)
+	public ErroDeFormularioDto autorLivro(IllegalStateException exception) {
 
-		ErroDeFormularioDto dto = new ErroDeFormularioDto("Autor ou Livro", "Nao existe");
+		ErroDeFormularioDto dto = new ErroDeFormularioDto(exception.getMessage(), exception.getLocalizedMessage());
 
 		return dto;
 	}
 
+	
+	
 }

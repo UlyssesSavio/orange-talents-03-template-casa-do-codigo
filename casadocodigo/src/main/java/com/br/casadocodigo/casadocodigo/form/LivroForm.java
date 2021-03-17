@@ -12,7 +12,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
+import org.springframework.util.Assert;
 
 import com.br.casadocodigo.casadocodigo.entidades.Autor;
 import com.br.casadocodigo.casadocodigo.entidades.Categoria;
@@ -48,19 +48,17 @@ public class LivroForm {
 	private LocalDate dataLancamento;
 
 	@NotNull
-	@NotEmpty
-	private String idCategoria;
+	private Long idCategoria;
 
 	@NotNull
-	@NotEmpty
-	private String idAutor;
+	private Long idAutor;
 
 	public LivroForm() {
 
 	}
 
 	public LivroForm(String titulo, String resumo, String sumario, double preco, int numeroPaginas, String isbn,
-			LocalDate dataLancamento, String idCategoria, String idAutor) {
+			LocalDate dataLancamento, Long idCategoria, Long idAutor) {
 
 		this.titulo = titulo;
 		this.resumo = resumo;
@@ -101,31 +99,26 @@ public class LivroForm {
 		return dataLancamento;
 	}
 
-	public String getIdCategoria() {
+	public Long getIdCategoria() {
 		return idCategoria;
 	}
 
-	public String getIdAutor() {
+	public Long getIdAutor() {
 		return idAutor;
 	}
 
-	public Optional<Livro> converter(CategoriaRepository categoriaRepository, AutorRepository autorRepository) {
-		Optional<Categoria> categoria = categoriaRepository.findById(Long.parseLong(idCategoria));
-
-		Optional<Autor> autor = autorRepository.findById(Long.parseLong(idAutor));
-		Optional<Livro> livro;
-
-		if (!categoria.isPresent() || !autor.isPresent()) {
-			livro = Optional.empty();
+	public Livro converter(CategoriaRepository categoriaRepository, AutorRepository autorRepository) {
 		
-		} else {
+		@NotNull Optional<Autor> autor = autorRepository.findById(idAutor);
+		@NotNull Optional<Categoria> categoria = categoriaRepository.findById(idCategoria);
 
-			livro = Optional.ofNullable(new Livro(titulo, resumo, sumario, preco, numeroPaginas, isbn, dataLancamento,
-					categoria.get(), autor.get()));
+		
+		
+		Assert.state(autor.isPresent(),"Você esta querendo cadastrar um livro para um autor que nao existe no banco "+idAutor);
+		Assert.state(categoria.isPresent(),"Você esta querendo cadastrar um livro para uma categoria que nao existe no banco "+idCategoria);
 
-		}
-
-		return livro;
+		return new Livro(titulo, resumo, sumario, preco, numeroPaginas, isbn, dataLancamento,
+				categoria.get(), autor.get());
 	}
 
 }
