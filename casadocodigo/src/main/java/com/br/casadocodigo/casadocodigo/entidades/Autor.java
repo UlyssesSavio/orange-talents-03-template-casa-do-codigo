@@ -1,5 +1,6 @@
 package com.br.casadocodigo.casadocodigo.entidades;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -26,7 +27,7 @@ public class Autor {
 	@Size(max=400)
 	private String descricao;
 	
-	private LocalDateTime instanteCriacao = LocalDateTime.now();
+	private LocalDate instanteCriacao = LocalDate.now();
 
 	
 	public Autor(){
@@ -68,7 +69,7 @@ public class Autor {
 		return descricao;
 	}
 
-	public LocalDateTime getInstanteCriacao() {
+	public LocalDate getInstanteCriacao() {
 		return instanteCriacao;
 	}
 

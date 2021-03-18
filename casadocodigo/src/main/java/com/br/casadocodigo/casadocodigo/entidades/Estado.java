@@ -29,6 +29,17 @@ public class Estado {
 		
 	}
 	
+	public Estado estadoGenerico( Pais pais, Long id) {
+		return new Estado("nao existe", pais, id);
+	}
+	
+	public Estado( String nome,  Pais pais, Long id) {
+	
+		this.id = id;
+		this.nome = nome;
+		this.pais = pais;
+	}
+	
 	
 	public Estado(@NotBlank String nome, @NotBlank Pais pais) {
 		super();
